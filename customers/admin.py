@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import Customer, Ticket, Booking, Feedback
+from .models import Customer, Ticket, Booking, Feedback, FanInteraction
 
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['user', 'phone', 'created_at']
+    list_display = ['user', 'phone', 'country', 'created_at']
     search_fields = ['user__username', 'user__email', 'phone']
-    list_filter = ['created_at']
+    list_filter = ['country', 'created_at']
 
 
 @admin.register(Ticket)
@@ -32,3 +32,12 @@ class FeedbackAdmin(admin.ModelAdmin):
     list_filter = ['rating', 'would_recommend', 'created_at']
     search_fields = ['customer__user__username', 'event__name', 'comment']
     readonly_fields = ['created_at']
+
+
+@admin.register(FanInteraction)
+class FanInteractionAdmin(admin.ModelAdmin):
+    list_display = ['fan', 'track', 'interaction_type', 'timestamp', 'device_type']
+    list_filter = ['interaction_type', 'device_type', 'timestamp']
+    search_fields = ['fan__user__username', 'track__track_name', 'track__album__album_name']
+    readonly_fields = ['created_at']
+    date_hierarchy = 'timestamp'

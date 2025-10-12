@@ -1,0 +1,201 @@
+event_id,name,location,date,artist_id,revenue
+E0001,Javed Akhtar Live Concert 1,London,2024-04-29,3UpmjPgIFSGqnxXuiwD014,374408
+E0002,Dev Negi Live Concert 2,Delhi,2024-09-08,04FsFHujpuqonrPXZrEJlK,508878
+E0003,Shafqat Amanat Ali Live Concert 3,Paris,2024-01-31,5SuRAj1A9FEHj5NxS86YAm,346901
+E0004,Armani White Live Concert 4,Dubai,2023-05-21,2qAwMsiIjTzlmfAkXKvhVA,49012
+E0005,Gourov-Roshin Live Concert 5,Mumbai,2023-01-15,65nLHsd1qvpjrzK4pGbEpC,981026
+E0006,Rohanpreet Singh Live Concert 6,Delhi,2025-07-06,0oZUBBe32WUJY1WjGzYEG8,122904
+E0007,ARB4 Live Concert 7,Mumbai,2022-12-15,7e2hk3B42soSKnZhzCkOD8,263283
+E0008,Amrita Kak Live Concert 8,Delhi,2023-08-25,4BTpn8TkJe0FnqlpTY1ZJ2,617187
+E0009,Armando Young Live Concert 9,Mumbai,2024-09-12,1f1CocvNRSmgLgtqMsA0AR,762429
+E0010,Asim Azhar Live Concert 10,Dubai,2023-06-18,1ZChN8G1Y7CJ0TXbrvblwS,460138
+E0011,Anvita Dutt Guptan Live Concert 11,New York,2023-07-21,4GEyPR3J4DYvuTRuPJQ0CW,789008
+E0012,Asha Bhosle Live Concert 12,Delhi,2023-12-01,5as8A4G47Ohu9NSWs3Je8U,912359
+E0013,Sukriti Kakar Live Concert 13,New York,2023-09-03,3FgHkfb3IqG4WKuVe1xCXM,921920
+E0014,Rashid Ali Live Concert 14,Mumbai,2025-03-31,281Vp9LDrWkHMHQzfQHWCt,952917
+E0015,Farhan Akhtar Live Concert 15,Los Angeles,2023-02-04,0XL6ie7a0NY5FM05b9Rn5L,817032
+E0016,Tony Kakkar Live Concert 16,Dubai,2023-11-04,0NZtn1Kyq08alpHCTRf3dv,199282
+E0017,Rekha Bhardwaj Live Concert 17,London,2023-09-17,3cqeO3muWIW5uSmUDNCmyT,20591
+E0018,Anu Malik Live Concert 18,Los Angeles,2025-01-28,71hjb5G92mGoKRSAW3Cj00,37065
+E0019,Shaan Live Concert 19,New York,2024-08-07,5cB4d4jPYjMT326sjihQ4m,825744
+E0020,DJ Armanitom Live Concert 20,Paris,2024-05-26,3YbrcVDoONWMYYwDNjRL3z,679433
+E0021,Armaan Puar Live Concert 21,Mumbai,2023-09-22,2gpgk1ewvk37UwMR9jiWU3,77855
+E0022,Anvita Dutt Guptan Live Concert 22,Delhi,2024-09-30,4GEyPR3J4DYvuTRuPJQ0CW,945870
+E0023,Imran Khan Live Concert 23,Los Angeles,2024-01-29,24BYRlsS8uIO4jA71mJ4Js,498640
+E0024,Kumar Sanu Live Concert 24,Los Angeles,2024-10-17,4K6blSRoklNdpw4mzLxwfn,509617
+E0025,Shaarib Toshi Live Concert 25,Paris,2024-11-07,0FJz7XR37hH69traaHLijA,316121
+E0026,Armani Caesar Live Concert 26,Delhi,2023-05-22,53S3boqktbqiB1JfHzsu1f,634303
+E0027,Asim Azhar Live Concert 27,Paris,2023-10-19,1ZChN8G1Y7CJ0TXbrvblwS,302981
+E0028,Quratulain Balouch Live Concert 28,Delhi,2024-05-18,5r3gdJkUB4oAcnuIGXEB7q,817724
+E0029,Sonu Nigam Live Concert 29,London,2023-05-31,1dVygo6tRFXC8CSWURQJq2,965151
+E0030,Atif Aslam Live Concert 30,Dubai,2024-08-20,2oSONSC9zQ4UonDKnLqksx,677257
+E0031,Tanishk Bagchi Live Concert 31,New York,2024-05-12,4f7KfxeHq9BiylGmyXepGt,592493
+E0032,Amaal Mallik Live Concert 32,Paris,2023-09-11,76fuWYgIf3TVIopTs3vaJ6,660458
+E0033,Sonu Nigam Live Concert 33,New York,2024-04-27,1dVygo6tRFXC8CSWURQJq2,773150
+E0034,Kanika Kapoor Live Concert 34,Paris,2023-11-25,6qcIg4IPLulyc03mWR87N8,995227
+E0035,Armanii Live Concert 35,Dubai,2025-07-22,48ZXHIYtqeBiklzhu3lAey,564868
+E0036,Shaan Live Concert 36,Paris,2023-04-22,5cB4d4jPYjMT326sjihQ4m,459826
+E0037,Javed Akhtar Live Concert 37,Delhi,2024-05-28,3UpmjPgIFSGqnxXuiwD014,850237
+E0038,Alan Walker Live Concert 38,London,2023-08-31,7vk5e3vY1uw9plTHJAMwjN,18127
+E0039,RUUH Live Concert 39,London,2023-08-13,70OyR3fSaGkXpkr1hMm9KQ,603762
+E0040,Gourov-Roshin Live Concert 40,London,2024-03-24,65nLHsd1qvpjrzK4pGbEpC,565201
+E0041,Neha Karode Live Concert 41,Mumbai,2024-08-15,4GUWRLqQ58vGlU9aIfC9QN,409052
+E0042,Bruno Mars Live Concert 42,Dubai,2025-05-20,0du5cEVh5yTK9QJze8zA0C,33927
+E0043,Armaan Malik Live Concert 43,Dubai,2025-06-26,3pibkVeMCi8twOlUWQGieI,62863
+E0044,Arko Live Concert 44,Los Angeles,2025-03-16,6jf2eKjiPT6P18RbOSLzf0,649866
+E0045,Neeraj Shridhar Live Concert 45,Delhi,2024-08-05,3tHD07u1ON4uHxmnT9rwqZ,255548
+E0046,Taylor Swift Live Concert 46,Dubai,2023-06-17,06HL4z0CvFAxyc27GXpf02,398545
+E0047,Shreya Ghosal Live Concert 47,Mumbai,2024-09-23,3qiqKlmodYZUKou4brRiSf,174287
+E0048,Arijit Singh Live Concert 48,Dubai,2025-04-11,6zrQkGA8EvD1Y4z35lIc2e,824920
+E0049,Farhan Akhtar Live Concert 49,Paris,2023-01-25,0XL6ie7a0NY5FM05b9Rn5L,256888
+E0050,Ali Zafar Live Concert 50,Dubai,2025-05-10,3cKNppGLfcxdt9CtoHEZmQ,129557
+E0051,Raghav Live Concert 51,Delhi,2023-01-11,5PVSEFUT4Inqu3yEq56Ku9,819362
+E0052,AKASA Live Concert 52,Mumbai,2025-03-16,4mRPyvdSBxARQIFeXXM13s,833562
+E0053,Mika Singh Live Concert 53,Delhi,2025-03-27,5T2I75UlGBcWd5nVyfmL13,294373
+E0054,Darshan Raval Live Concert 54,London,2024-08-14,2GoeZ0qOTt6kjsWW4eA6LS,519502
+E0055,Armaan Puar Live Concert 55,New York,2023-02-27,2gpgk1ewvk37UwMR9jiWU3,309877
+E0056,Raaginder Live Concert 56,London,2023-09-12,0aS41TT32O5PsnAB7qZj7L,402035
+E0057,Armani Caesar Live Concert 57,Paris,2025-01-24,53S3boqktbqiB1JfHzsu1f,835681
+E0058,Mohammed Aslam Live Concert 58,New York,2025-03-05,6lGchZePVLrGOqMCtXKNFi,918868
+E0059,UNPLG'd Live Concert 59,Delhi,2024-08-01,3gKTtA1BK4pq1IIHXAyvgO,166689
+E0060,Arko Live Concert 60,Dubai,2025-01-24,6jf2eKjiPT6P18RbOSLzf0,957349
+E0061,Amrita Kak Live Concert 61,Delhi,2023-08-31,4BTpn8TkJe0FnqlpTY1ZJ2,326384
+E0062,Nehaal Naseem Live Concert 62,Delhi,2023-05-14,6YSVUxXGsQQD2cWSJhN8re,550171
+E0063,onve Live Concert 63,Mumbai,2023-06-23,3A4Ssi38ppefDLqzeEUHI7,649141
+E0064,Amitabh Bhattacharya Live Concert 64,Paris,2023-08-08,2fMqTqiTxUDlmcOEPaQSsx,663968
+E0065,Stebin Ben Live Concert 65,Paris,2024-07-26,1UAzmnFgjizIDvtHvnCdEq,472779
+E0066,Aamir Khan Live Concert 66,Paris,2025-07-30,0Tn7oEmE8zDUR340Doo9zl,958154
+E0067,onve Live Concert 67,Dubai,2023-05-26,3A4Ssi38ppefDLqzeEUHI7,436359
+E0068,Vishal-Shekhar Live Concert 68,New York,2023-09-28,6Mv8GjQa7LKUGCAqa9qqdb,414079
+E0069,Shaarib Toshi Live Concert 69,Mumbai,2024-02-28,0FJz7XR37hH69traaHLijA,670042
+E0070,Noori Live Concert 70,London,2024-05-12,2KRtcParcfvUYXcCAueULl,135435
+E0071,Ed Sheeran Live Concert 71,Mumbai,2023-10-13,6eUKZXaKkcviH0Ku9w2n3V,189621
+E0072,ARB4 Live Concert 72,New York,2023-01-06,7e2hk3B42soSKnZhzCkOD8,395178
+E0073,Arijit Singh Live Concert 73,Paris,2025-04-26,6zrQkGA8EvD1Y4z35lIc2e,405132
+E0074,Akriti Kakar Live Concert 74,Delhi,2023-02-24,0le3G5nxaIL8ecHpBA6LPW,159328
+E0075,Rabbi Live Concert 75,London,2025-08-10,4rD8zSLMVjpdgJyW14Lokh,408345
+E0076,Lucky Ali Live Concert 76,Paris,2024-12-25,2L16nDKTxhFGaDriR2AHTB,13282
+E0077,Armaan Rashid Khan Live Concert 77,Delhi,2023-06-12,3ubPcWKt3tjjIXv4EM99Of,565296
+E0078,Nikhita Gandhi Live Concert 78,Mumbai,2023-07-27,3tPQOjkxO3mrYrrgkTeXgH,158222
+E0079,Armanni Reign Live Concert 79,Mumbai,2024-05-21,7eLk4SsrtZtCANV4X713uI,630434
+E0080,Zack Knight Live Concert 80,Paris,2023-05-07,7JMBJmGMqw4H33HECyW4QP,540196
+E0081,Vishal Live Concert 81,Dubai,2025-06-06,1xX0K9yaCUHVyVLCVfUAnw,856119
+E0082,Arman Alif Live Concert 82,New York,2023-11-20,6T3LqDmwOOLQkYgsIY6vQN,502385
+E0083,Noori Live Concert 83,Los Angeles,2025-08-31,2KRtcParcfvUYXcCAueULl,557550
+E0084,ARB4 Live Concert 84,New York,2023-08-08,7e2hk3B42soSKnZhzCkOD8,627841
+E0085,Alan Walker Live Concert 85,Mumbai,2025-04-26,7vk5e3vY1uw9plTHJAMwjN,611694
+E0086,Kumar Sanu Live Concert 86,New York,2023-08-21,4K6blSRoklNdpw4mzLxwfn,363020
+E0087,Vishal Mishra Live Concert 87,London,2024-01-02,5wJ1H6ud777odtZl5gG507,379624
+E0088,Raghav Live Concert 88,New York,2023-03-30,5PVSEFUT4Inqu3yEq56Ku9,668213
+E0089,Arijit Singh Live Concert 89,Paris,2023-10-09,4YRxDV8wJFPHPTeXepOstw,727617
+E0090,Neeti Mohan Live Concert 90,New York,2024-12-30,3ZxZ03fj3tXBZHZWzvaLSM,995390
+E0091,Rochak Kohli Live Concert 91,New York,2023-03-31,3dN9MQpjIyNxyeRfz4EDZe,807236
+E0092,Arko Live Concert 92,Los Angeles,2023-01-10,6jf2eKjiPT6P18RbOSLzf0,155410
+E0093,Neha Karode Live Concert 93,Mumbai,2025-08-09,4GUWRLqQ58vGlU9aIfC9QN,524218
+E0094,Amaal Mallik Live Concert 94,London,2024-07-13,76fuWYgIf3TVIopTs3vaJ6,904645
+E0095,Stebin Ben Live Concert 95,Los Angeles,2024-01-30,1UAzmnFgjizIDvtHvnCdEq,579898
+E0096,Lady Gaga Live Concert 96,New York,2023-10-17,1HY2Jd0NmPuamShAr6KMms,514342
+E0097,Ankit Balhara Live Concert 97,Delhi,2022-12-21,2FtpR8FWlo2HsessGvWxRg,671497
+E0098,Mohammed Aslam Live Concert 98,Dubai,2024-09-04,6lGchZePVLrGOqMCtXKNFi,162220
+E0099,Alisha Chinai Live Concert 99,London,2024-07-18,4mBxoO0pAcMbAwuTcrcLMc,890408
+E0100,Raaginder Live Concert 100,New York,2024-02-19,0aS41TT32O5PsnAB7qZj7L,266160
+E0101,Armaan Malik Live Concert 101,London,2025-05-02,4IKVDbCSBTxBeAsMKjAuTs,960416
+E0102,Armaan Malik Live Concert 102,Los Angeles,2023-11-10,4IKVDbCSBTxBeAsMKjAuTs,152756
+E0103,Sneha Pant Live Concert 103,Delhi,2023-05-28,6MqZjgch4AHGc5f8P1167O,113760
+E0104,Armaan Malik Live Concert 104,Delhi,2024-06-25,3pibkVeMCi8twOlUWQGieI,620218
+E0105,Bad Bunny Live Concert 105,Dubai,2025-06-08,4q3ewBCX7sLwd24euuV69X,513251
+E0106,Armaan Gill Live Concert 106,Delhi,2025-03-06,419l4iEymGkojTyDzVYA7j,948711
+E0107,Wajid Live Concert 107,Mumbai,2024-04-25,6f5kUMXGROFtdAtxXZwing,468692
+E0108,Lady Gaga Live Concert 108,Los Angeles,2024-06-20,1HY2Jd0NmPuamShAr6KMms,975305
+E0109,Jatin-Lalit Live Concert 109,London,2024-06-28,4YgUVg4p7xtMOrOS4GjiJZ,747952
+E0110,Tanishk Bagchi Live Concert 110,London,2023-11-17,4f7KfxeHq9BiylGmyXepGt,899509
+E0111,Amit Mishra Live Concert 111,London,2025-05-18,2LgKrgRJcbJlt14i1LTzDU,213566
+E0112,Farhan Akhtar Live Concert 112,Los Angeles,2023-02-07,0XL6ie7a0NY5FM05b9Rn5L,713379
+E0113,Mohammed Aslam Live Concert 113,London,2023-08-28,6lGchZePVLrGOqMCtXKNFi,989951
+E0114,Justin Bieber Live Concert 114,London,2024-04-07,1uNFoZAHBGtllmzznpCI3s,286301
+E0115,Arijit Singh Live Concert 115,Paris,2024-06-18,6zrQkGA8EvD1Y4z35lIc2e,693301
+E0116,Subhi Live Concert 116,Dubai,2025-04-07,2n4qix48iT07tbyBdxAjM2,737025
+E0117,Vishal Mishra Live Concert 117,Delhi,2025-02-25,5wJ1H6ud777odtZl5gG507,435998
+E0118,Farhan Akhtar Live Concert 118,Mumbai,2023-02-12,0XL6ie7a0NY5FM05b9Rn5L,665831
+E0119,Yash Narvekar Live Concert 119,New York,2024-12-03,4RlnRVxKm3jnUzOP4czbIK,311666
+E0120,Wajid Live Concert 120,New York,2024-04-18,6f5kUMXGROFtdAtxXZwing,189427
+E0121,Aamir Khan Live Concert 121,Delhi,2025-06-03,0Tn7oEmE8zDUR340Doo9zl,954194
+E0122,Alisha Chinai Live Concert 122,London,2025-02-14,4mBxoO0pAcMbAwuTcrcLMc,820084
+E0123,Mohammed Aslam Live Concert 123,Dubai,2023-06-20,6lGchZePVLrGOqMCtXKNFi,503252
+E0124,Lady Gaga Live Concert 124,New York,2023-07-28,1HY2Jd0NmPuamShAr6KMms,459664
+E0125,Shaan Live Concert 125,Mumbai,2023-02-10,5cB4d4jPYjMT326sjihQ4m,186083
+E0126,Rashid Ali Live Concert 126,Delhi,2024-05-01,281Vp9LDrWkHMHQzfQHWCt,646083
+E0127,Tony Kakkar Live Concert 127,London,2024-07-10,0NZtn1Kyq08alpHCTRf3dv,868628
+E0128,Arijit Singh Live Concert 128,Los Angeles,2025-06-23,6zrQkGA8EvD1Y4z35lIc2e,753902
+E0129,Amarabha Banerjee Live Concert 129,London,2024-11-05,2780kFYuvbwSLPJZ5faEDw,558000
+E0130,UNPLG'd Live Concert 130,Dubai,2023-09-16,3gKTtA1BK4pq1IIHXAyvgO,785940
+E0131,Shafqat Amanat Ali Live Concert 131,Delhi,2023-08-10,5SuRAj1A9FEHj5NxS86YAm,145566
+E0132,Arko Live Concert 132,Paris,2023-05-27,6jf2eKjiPT6P18RbOSLzf0,681090
+E0133,Rekha Bhardwaj Live Concert 133,Dubai,2025-04-01,3cqeO3muWIW5uSmUDNCmyT,58183
+E0134,Armaan Rashid Khan Live Concert 134,Dubai,2023-02-19,3ubPcWKt3tjjIXv4EM99Of,771709
+E0135,Ed Sheeran Live Concert 135,New York,2023-01-27,6eUKZXaKkcviH0Ku9w2n3V,28099
+E0136,Arijit Singh Live Concert 136,Delhi,2023-10-25,4YRxDV8wJFPHPTeXepOstw,684481
+E0137,Aamir Khan Live Concert 137,New York,2025-05-28,0Tn7oEmE8zDUR340Doo9zl,612454
+E0138,Shafqat Amanat Ali Live Concert 138,New York,2025-07-20,5SuRAj1A9FEHj5NxS86YAm,375825
+E0139,Amit Mishra Live Concert 139,Dubai,2025-03-19,2LgKrgRJcbJlt14i1LTzDU,977190
+E0140,Alan Walker Live Concert 140,Paris,2024-09-11,7vk5e3vY1uw9plTHJAMwjN,824678
+E0141,Mustafa Zahid Live Concert 141,Dubai,2025-05-31,71oGOxg5ez52Hh1Ye41A98,902441
+E0142,Arnab Chakraborty Live Concert 142,Dubai,2023-11-05,5g4R0JHd19CuLa3PSiYMWX,541801
+E0143,Anvita Dutt Guptan Live Concert 143,Paris,2023-04-02,4GEyPR3J4DYvuTRuPJQ0CW,755409
+E0144,Atif Ahmed Niloy Live Concert 144,London,2022-12-29,6SEAg6n1HOvl013lhE2unL,199943
+E0145,Armaan Gill Live Concert 145,Los Angeles,2023-01-18,419l4iEymGkojTyDzVYA7j,295556
+E0146,Anvita Dutt Guptan Live Concert 146,Delhi,2023-10-15,4GEyPR3J4DYvuTRuPJQ0CW,973332
+E0147,Farhan Akhtar Live Concert 147,London,2024-12-30,0XL6ie7a0NY5FM05b9Rn5L,73380
+E0148,Noori Live Concert 148,Dubai,2024-12-14,2KRtcParcfvUYXcCAueULl,642287
+E0149,REHMA Live Concert 149,Paris,2024-10-02,528kmCx2HGqrT4G9sXCDuD,301231
+E0150,Armaan Malik Live Concert 150,Mumbai,2023-10-09,4IKVDbCSBTxBeAsMKjAuTs,957484
+E0151,Toshi Sabri Live Concert 151,Delhi,2022-12-23,0Dr1dEmiBkgZWPsc1j5oHV,951467
+E0152,Rohail Hyatt Live Concert 152,Dubai,2023-02-06,2coWJ1vqnp7z8eh0Vd5gPl,637785
+E0153,Rashid Ali Live Concert 153,Mumbai,2024-01-04,281Vp9LDrWkHMHQzfQHWCt,793411
+E0154,Farhan Akhtar Live Concert 154,Delhi,2023-04-12,0XL6ie7a0NY5FM05b9Rn5L,67099
+E0155,Ankit Balhara Live Concert 155,Mumbai,2025-04-11,2FtpR8FWlo2HsessGvWxRg,336416
+E0156,Akashdeep Sengupta Live Concert 156,London,2023-06-18,1Taiu6ysv5t5sVhhMYYucf,428191
+E0157,Kanika Kapoor Live Concert 157,New York,2023-10-12,6qcIg4IPLulyc03mWR87N8,417036
+E0158,Darshan Raval Live Concert 158,New York,2024-06-23,2GoeZ0qOTt6kjsWW4eA6LS,979733
+E0159,Alisha Chinai Live Concert 159,London,2022-12-10,4mBxoO0pAcMbAwuTcrcLMc,223431
+E0160,Kendrick Lamar Live Concert 160,Dubai,2023-08-21,2YZyLoL8N0Wb9xBt1NhZWg,106820
+E0161,Alan Walker Live Concert 161,Mumbai,2025-06-04,7vk5e3vY1uw9plTHJAMwjN,257767
+E0162,Kavita Krishnamurthy Live Concert 162,Dubai,2025-08-25,6WPmTGeeoymoVlXVtsCwz7,917468
+E0163,Lucky Ali Live Concert 163,Mumbai,2024-06-15,2L16nDKTxhFGaDriR2AHTB,623786
+E0164,Asha Bhosle Live Concert 164,Delhi,2024-09-14,5as8A4G47Ohu9NSWs3Je8U,88894
+E0165,Armik Live Concert 165,Paris,2023-05-12,2Z8XcWdgy5dSaiQR3d7tHK,761554
+E0166,Bad Bunny Live Concert 166,Paris,2024-09-22,4q3ewBCX7sLwd24euuV69X,641400
+E0167,Arijit Singh Live Concert 167,Paris,2024-11-16,4YRxDV8wJFPHPTeXepOstw,223775
+E0168,Jasmine Sandlas Live Concert 168,Paris,2023-08-08,0mJDQBWytBhOh5JB1DOQ1c,378748
+E0169,Shaan Live Concert 169,Los Angeles,2023-11-06,5cB4d4jPYjMT326sjihQ4m,540539
+E0170,Asees Kaur Live Concert 170,Dubai,2023-01-17,1sVmXkzX2ukc6QvasrDBES,182049
+E0171,Arnab Chakraborty Live Concert 171,London,2024-11-21,5g4R0JHd19CuLa3PSiYMWX,264514
+E0172,Arjun Kanungo Live Concert 172,Los Angeles,2024-01-24,3bAFvRjPZrpRz9Ox1sElQa,111064
+E0173,Akashdeep Sengupta Live Concert 173,Delhi,2025-01-31,1Taiu6ysv5t5sVhhMYYucf,900893
+E0174,Vishal Live Concert 174,Los Angeles,2023-02-26,1xX0K9yaCUHVyVLCVfUAnw,787623
+E0175,Aashir Wajahat Live Concert 175,Dubai,2023-11-29,4Kd6rJWBl4KpwRYct9PFMo,501462
+E0176,Vishal-Shekhar Live Concert 176,Delhi,2024-07-04,6Mv8GjQa7LKUGCAqa9qqdb,779334
+E0177,Sonu Nigam Live Concert 177,New York,2024-08-07,1dVygo6tRFXC8CSWURQJq2,38736
+E0178,Mustafa Zahid Live Concert 178,Delhi,2023-12-03,71oGOxg5ez52Hh1Ye41A98,417651
+E0179,Lucky Ali Live Concert 179,London,2024-01-21,2L16nDKTxhFGaDriR2AHTB,826468
+E0180,Shreyas Murali Live Concert 180,Dubai,2024-02-14,6swIo0iu7c8WtdCzHnNPxS,241335
+E0181,Armaan Khera Live Concert 181,New York,2023-09-25,26mnXuAjEzT1NAJDgya61m,707557
+E0182,Lady Gaga Live Concert 182,New York,2025-04-12,1HY2Jd0NmPuamShAr6KMms,536454
+E0183,Sneha Pant Live Concert 183,London,2024-09-27,6MqZjgch4AHGc5f8P1167O,855418
+E0184,Rashmeet Kaur Live Concert 184,London,2023-05-24,15UQcr22jcc6DJjy3sLv3J,567792
+E0185,Amrik Singh Live Concert 185,Paris,2024-03-03,1Sqacm1VMROsVrDOUwxS5G,32052
+E0186,HYDR Live Concert 186,London,2023-03-30,40CEytkVli5Le5CFOYnONw,884792
+E0187,Vishal-Shekhar Live Concert 187,Delhi,2023-04-03,6Mv8GjQa7LKUGCAqa9qqdb,818342
+E0188,Bad Bunny Live Concert 188,Dubai,2024-06-10,4q3ewBCX7sLwd24euuV69X,319904
+E0189,Ali Zafar Live Concert 189,Los Angeles,2023-07-26,3cKNppGLfcxdt9CtoHEZmQ,676939
+E0190,Mustafa Zahid Live Concert 190,London,2022-12-14,71oGOxg5ez52Hh1Ye41A98,126947
+E0191,Arijit Singh Live Concert 191,Delhi,2024-06-29,4YRxDV8wJFPHPTeXepOstw,308196
+E0192,UNPLG'd Live Concert 192,London,2025-08-05,3gKTtA1BK4pq1IIHXAyvgO,725455
+E0193,Nakash Aziz Live Concert 193,Delhi,2025-01-16,4kq8z3vydHjPDggxb16ErB,651469
+E0194,Shafqat Amanat Ali Live Concert 194,London,2023-07-17,5SuRAj1A9FEHj5NxS86YAm,371906
+E0195,RUUH Live Concert 195,Mumbai,2024-05-07,70OyR3fSaGkXpkr1hMm9KQ,686538
+E0196,Dev Negi Live Concert 196,London,2023-01-23,04FsFHujpuqonrPXZrEJlK,487537
+E0197,Jasmine Sandlas Live Concert 197,Delhi,2023-06-28,0mJDQBWytBhOh5JB1DOQ1c,255815
+E0198,Mika Singh Live Concert 198,Dubai,2025-08-06,5T2I75UlGBcWd5nVyfmL13,490626
+E0199,Aamir Khan Live Concert 199,Paris,2024-07-05,0Tn7oEmE8zDUR340Doo9zl,296128
+E0200,Siddharth - Garima Live Concert 200,Dubai,2023-04-03,6k6TIai4KyKG1DeIMftSmJ,821322

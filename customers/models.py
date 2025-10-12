@@ -8,6 +8,10 @@ class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='customer_profile')
     phone = models.CharField(max_length=20, blank=True)
     date_of_birth = models.DateField(blank=True, null=True)
+    
+    # Fields from Excel (Fans table)
+    country = models.CharField(max_length=100, blank=True)
+    
     preferred_genres = models.ManyToManyField('artists.Genre', blank=True)
     preferred_artists = models.ManyToManyField('artists.Artist', blank=True)
     marketing_consent = models.BooleanField(default=False)
@@ -21,6 +25,7 @@ class Customer(models.Model):
         indexes = [
             models.Index(fields=['user']),
             models.Index(fields=['phone']),
+            models.Index(fields=['country']),
         ]
 
 
@@ -105,3 +110,38 @@ class Feedback(models.Model):
             models.Index(fields=['event', 'rating']),
             models.Index(fields=['created_at']),
         ]
+
+
+class FanInteraction(models.Model):
+    """Track fan interactions with songs/tracks"""
+    INTERACTION_TYPES = [
+        ('play', 'Play'),
+        ('like', 'Like'),
+        ('share', 'Share'),
+        ('playlist_add', 'Added to Playlist'),
+        ('download', 'Download'),
+    ]
+    
+    fan = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='interactions')
+    track = models.ForeignKey('artists.Track', on_delete=models.CASCADE, related_name='fan_interactions')
+    interaction_type = models.CharField(max_length=20, choices=INTERACTION_TYPES)
+    timestamp = models.DateTimeField()
+    
+    # Additional analytics fields
+    device_type = models.CharField(max_length=50, blank=True)  # mobile, web, desktop
+    location = models.CharField(max_length=100, blank=True)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.fan} - {self.interaction_type} - {self.track.track_name}"
+    
+    class Meta:
+        ordering = ['-timestamp']
+        indexes = [
+            models.Index(fields=['fan', 'track', 'timestamp']),
+            models.Index(fields=['track', '-timestamp']),
+            models.Index(fields=['interaction_type', '-timestamp']),
+        ]
+        # Allow multiple interactions of same type at same time
+        unique_together = [['fan', 'track', 'timestamp', 'interaction_type']]
