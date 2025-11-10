@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',  # For token authentication
     'jazzmin',
+    'corsheaders',
 
     # Local apps
     'accounts',
@@ -60,6 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',  # Disabled for API
@@ -162,6 +164,15 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 20,
 }
+
+# CORS settings
+# Allow Next.js frontend (development) to call Django API and include credentials
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
+
+# Allow cookies (session authentication) to be sent
+CORS_ALLOW_CREDENTIALS = True
 
 # Custom settings for role-based permissions
 ROLE_PERMISSIONS = {

@@ -1,0 +1,67 @@
+# === RHYTHMLINK FRONTEND DEVELOPMENT GUIDELINES (Next.js + TypeScript) ===
+
+## PROJECT CONTEXT
+Frontend for "RhythmLink" — Artist & Event Management System.
+Backend: Django REST Framework (role management, dynamic pricing, analytics, smart search)
+
+## FRONTEND GOALS
+- Build clean, modular, scalable frontend
+- Maintain uniform folder structure and code uniformity
+- Separate UI, business logic, API communication, and state management
+- Use reusable, atomic UI components
+
+## USER ROLES (IMPORTANT)
+There are TWO ROLES from backend:
+1. MANAGER → Can create/manage events, configure pricing tiers, view analytics
+2. CUSTOMER / AUDIENCE → Can browse events, buy tickets, view history, view artists
+
+Frontend must:
+- Identify role from user profile API response or JWT payload
+- Restrict access to protected pages (e.g., manager dashboard)
+
+## TECH / LIBRARIES (STRICT)
+- Next.js (App Router)
+- TypeScript (mandatory)
+- Tailwind CSS
+- Zustand for state management
+- React Query (optional but preferred for async data handling)
+- ✅ Native `fetch()` wrapped in a reusable function
+  (❌ Do NOT use axios anywhere)
+
+## CODE STRUCTURE
+Use this folder structure:
+
+src/
+ ├─ app/
+ │   ├─ (public)/            # public-facing pages
+ │   ├─ manager/             # protected manager pages
+ │   ├─ user/                # protected customer pages
+ │   ├─ api/                 # Next.js internal route handlers (if any)
+ │   └─ layout.tsx
+ ├─ components/
+ │   ├─ ui/                  # small atomic UI components (buttons, modals, inputs)
+ │   └─ features/            # components tied to specific feature (events, pricing ...)
+ ├─ modules/
+ │   ├─ auth/                # login, register
+ │   ├─ events/              # list, detail, booking
+ │   ├─ pricing/             # dynamic pricing UI
+ │   ├─ analytics/           # manager dashboard charts
+ │   └─ search/              # autocomplete UI
+ ├─ lib/
+ │   ├─ api/                 # reusable fetch wrappers grouped by domain
+ │   └─ utils/               # helper functions
+ ├─ store/                   # Zustand stores
+ ├─ hooks/                   # reusable hooks (useAuth, useEvent, usePricing)
+ └─ types/                   # TypeScript interfaces
+
+## DATA ACCESS RULES
+❌ NEVER call `fetch()` directly inside components  
+✅ All API calls must go through `/lib/api/*.ts` functions  
+✅ Group endpoints by domain:
+
+Example:
+ /lib/api/events.ts    →  getEvents(), createEvent()
+ /lib/api/pricing.ts   →  getCurrentPrice(), getPriceTiers()
+ /lib/api/analytics.ts →  getDashboardData()
+
+Example fetch wrapper (preferred format):
