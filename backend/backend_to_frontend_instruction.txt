@@ -1,0 +1,1378 @@
+================================================================================
+                    RHYTHMLINK BACKEND TO FRONTEND INSTRUCTIONS
+                         Next.js Frontend Development Guide
+================================================================================
+
+📋 TABLE OF CONTENTS
+1. Backend Overview
+2. API Base URL & Configuration
+3. Authentication & User Management
+4. API Endpoints Reference
+5. Data Models & TypeScript Interfaces
+6. API Response Structures
+7. Frontend Implementation Guide
+8. State Management Recommendations
+9. Environment Variables
+10. Common API Patterns
+
+================================================================================
+                            1. BACKEND OVERVIEW
+================================================================================
+
+Tech Stack:
+- Django 5.2.7 + Django REST Framework
+- PostgreSQL Database
+- REST API Architecture
+- Session & Basic Authentication
+
+Base API URL: http://localhost:8000
+
+================================================================================
+                      2. API BASE URL & CONFIGURATION
+================================================================================
+
+Development URL: http://localhost:8000
+
+API Structure:
+- /api/accounts/    - User registration, authentication, profiles
+- /api/artists/     - Artists, genres, albums, tracks
+- /api/events/      - Events, venues, event types
+- /api/customers/   - Bookings, feedback, customer interactions
+- /api/pricing/     - Dynamic pricing, price tiers
+- /api/analytics/   - Event analytics, dashboards
+- /api/search/      - Search, autocomplete, popular searches
+- /admin/           - Django admin panel
+
+================================================================================
+                   3. AUTHENTICATION & USER MANAGEMENT
+================================================================================
+
+Authentication Type: Session-based + BasicAuth
+- Most endpoints require authentication
+- Use Django's CSRF token for POST/PUT/DELETE requests
+
+User Roles:
+1. manager      - Event Manager (can create/manage events)
+2. customer     - Regular customer/audience
+3. admin        - System administrator
+
+AUTHENTICATION ENDPOINTS:
+
+POST /api/accounts/register/
+Request Body:
+{
+  "username": "string",
+  "email": "email",
+  "password": "string",
+  "first_name": "string",
+  "last_name": "string",
+  "role": "customer|manager|admin",
+  "phone": "string",
+  "date_of_birth": "YYYY-MM-DD"
+}
+
+GET /api/accounts/profile/
+Response:
+{
+  "id": number,
+  "username": "string",
+  "email": "string",
+  "first_name": "string",
+  "last_name": "string",
+  "profile": {
+    "role": "string",
+    "phone": "string",
+    "date_of_birth": "date",
+    "profile_picture": "url",
+    "is_verified": boolean
+  }
+}
+
+================================================================================
+                        4. API ENDPOINTS REFERENCE
+================================================================================
+
+--------------------------------------------------------------------------------
+                              ARTISTS MODULE
+--------------------------------------------------------------------------------
+
+GET /api/artists/artists/
+- List all artists with pagination
+- Query params: ?page=1&search=name
+
+GET /api/artists/artists/{id}/
+- Get specific artist details
+
+POST /api/artists/artists/
+Request Body:
+{
+  "name": "string",
+  "genre": number,  // Genre ID
+  "contact_email": "email",
+  "contact_phone": "string",
+  "bio": "text",
+  "image": "file",
+  "followers": number,
+  "popularity": number,  // 0-100
+  "social_media_links": {
+    "spotify": "url",
+    "instagram": "url",
+    "twitter": "url"
+  },
+  "is_active": boolean
+}
+
+PUT/PATCH /api/artists/artists/{id}/
+- Update artist details
+
+DELETE /api/artists/artists/{id}/
+- Delete artist
+
+GET /api/artists/genres/
+- List all genres
+
+GET /api/artists/genres/{id}/
+- Get specific genre
+
+POST /api/artists/genres/
+Request Body:
+{
+  "name": "string",
+  "description": "text"
+}
+
+--------------------------------------------------------------------------------
+                               EVENTS MODULE
+--------------------------------------------------------------------------------
+
+GET /api/events/events/
+- List all events
+- Query params: ?page=1&date=YYYY-MM-DD&venue=id&is_active=true
+
+GET /api/events/events/{id}/
+Response:
+{
+  "id": number,
+  "name": "string",
+  "description": "text",
+  "date": "YYYY-MM-DD",
+  "start_time": "HH:MM:SS",
+  "end_time": "HH:MM:SS",
+  "venue": number,
+  "venue_name": "string",
+  "event_type": number,
+  "event_type_name": "string",
+  "poster_image": "url",
+  "ticket_price": "decimal",
+  "max_tickets_per_customer": number,
+  "is_active": boolean,
+  "created_at": "datetime",
+  "updated_at": "datetime"
+}
+
+POST /api/events/events/
+Request Body:
+{
+  "name": "string",
+  "description": "text",
+  "date": "YYYY-MM-DD",
+  "start_time": "HH:MM:SS",
+  "end_time": "HH:MM:SS",
+  "venue": number,
+  "event_type": number,
+  "poster_image": "file",
+  "ticket_price": "decimal",
+  "max_tickets_per_customer": number,
+  "is_active": boolean
+}
+
+PUT/PATCH /api/events/events/{id}/
+- Update event
+
+DELETE /api/events/events/{id}/
+- Delete event
+
+GET /api/events/venues/
+- List all venues
+
+GET /api/events/venues/{id}/
+Response:
+{
+  "id": number,
+  "name": "string",
+  "location": "string",
+  "address": "text",
+  "city": "string",
+  "state": "string",
+  "capacity": number,
+  "amenities": ["string"],
+  "contact_email": "email",
+  "contact_phone": "string",
+  "latitude": "decimal",
+  "longitude": "decimal",
+  "is_active": boolean,
+  "created_at": "datetime"
+}
+
+POST /api/events/venues/
+Request Body:
+{
+  "name": "string",
+  "location": "string",
+  "address": "text",
+  "city": "string",
+  "state": "string",
+  "capacity": number,
+  "amenities": ["parking", "wifi", "food"],
+  "contact_email": "email",
+  "contact_phone": "string",
+  "latitude": "decimal",
+  "longitude": "decimal"
+}
+
+GET /api/events/event-types/
+- List event types (concert, festival, etc.)
+
+POST /api/events/event-types/
+Request Body:
+{
+  "name": "string",
+  "description": "text"
+}
+
+--------------------------------------------------------------------------------
+                             CUSTOMERS MODULE
+--------------------------------------------------------------------------------
+
+POST /api/customers/book/
+Request Body:
+{
+  "event": number,
+  "tickets": [number],  // Array of ticket IDs
+  "total_amount": "decimal",
+  "special_requests": "text"
+}
+Response:
+{
+  "id": number,
+  "customer": number,
+  "event": number,
+  "tickets": [number],
+  "total_amount": "decimal",
+  "booking_date": "datetime",
+  "status": "pending|confirmed|cancelled|refunded",
+  "payment_reference": "string",
+  "special_requests": "text"
+}
+
+GET /api/customers/my-bookings/
+- Get all bookings for authenticated customer
+Response:
+{
+  "count": number,
+  "next": "url",
+  "previous": "url",
+  "results": [
+    {
+      "id": number,
+      "event": {
+        "id": number,
+        "name": "string",
+        "date": "YYYY-MM-DD",
+        "venue_name": "string"
+      },
+      "total_amount": "decimal",
+      "booking_date": "datetime",
+      "status": "string",
+      "tickets": [
+        {
+          "id": number,
+          "seat_number": "string",
+          "section": "string",
+          "final_price": "decimal"
+        }
+      ]
+    }
+  ]
+}
+
+--------------------------------------------------------------------------------
+                              PRICING MODULE
+--------------------------------------------------------------------------------
+
+GET /api/pricing/tiers/{event_id}/
+Response:
+{
+  "event_id": number,
+  "event_name": "string",
+  "tiers": [
+    {
+      "id": number,
+      "tier_name": "string",
+      "tier_percentage_start": number,  // 0-100
+      "tier_percentage_end": number,    // 0-100
+      "price": "decimal",
+      "created_date": "datetime",
+      "is_active": boolean
+    }
+  ]
+}
+
+GET /api/pricing/current-price/{event_id}/
+Response:
+{
+  "event_id": number,
+  "event_name": "string",
+  "current_booking_percentage": number,
+  "current_tier": {
+    "id": number,
+    "tier_name": "string",
+    "price": "decimal",
+    "tier_range": "30-70%"
+  },
+  "available_tickets": number,
+  "total_tickets": number
+}
+
+POST /api/pricing/tiers/{event_id}/
+Request Body:
+{
+  "tier_name": "string",
+  "tier_percentage_start": number,
+  "tier_percentage_end": number,
+  "price": "decimal"
+}
+
+--------------------------------------------------------------------------------
+                              SEARCH MODULE
+--------------------------------------------------------------------------------
+
+GET /api/search/autocomplete/?q={query}
+Query params: ?q=search_term
+Response:
+{
+  "query": "string",
+  "count": number,
+  "results": [
+    {
+      "type": "artist|event|venue",
+      "id": number,
+      "name": "string",
+      "genre": "string",  // for artists
+      "date": "date",     // for events
+      "venue": "string",  // for events
+      "city": "string",   // for venues
+      "url": "string"
+    }
+  ]
+}
+
+GET /api/search/popular/?limit={number}
+Response:
+{
+  "popular_searches": [
+    {
+      "keyword": "string",
+      "search_count": number,
+      "last_searched": "datetime"
+    }
+  ]
+}
+
+--------------------------------------------------------------------------------
+                             ANALYTICS MODULE
+--------------------------------------------------------------------------------
+
+GET /api/analytics/dashboard/{event_id}/
+Response:
+{
+  "event": {
+    "id": number,
+    "name": "string",
+    "date": "date",
+    "venue": "string",
+    "total_capacity": number
+  },
+  "analytics": {
+    "total_bookings": number,
+    "total_revenue": number,
+    "avg_rating": number,
+    "booking_percentage": number,
+    "tickets_available": number
+  },
+  "revenue_by_tier": [
+    {
+      "tickets__current_tier__tier_name": "string",
+      "tier_revenue": number,
+      "tier_bookings": number
+    }
+  ],
+  "booking_velocity_per_day": number,
+  "top_customer_genres": [
+    {
+      "customer__preferred_genres__name": "string",
+      "count": number
+    }
+  ],
+  "last_updated": "datetime"
+}
+
+GET /api/analytics/manager-dashboard/
+- Requires authentication as manager
+Response:
+{
+  "manager": {
+    "name": "string",
+    "email": "string"
+  },
+  "summary": {
+    "total_events": number,
+    "total_revenue": number,
+    "total_bookings": number
+  },
+  "events": [
+    {
+      "id": number,
+      "name": "string",
+      "date": "date",
+      "venue": "string",
+      "total_bookings": number,
+      "total_revenue": number,
+      "booking_percentage": number,
+      "avg_rating": number,
+      "tickets_available": number
+    }
+  ],
+  "venue_utilization": [
+    {
+      "venue__name": "string",
+      "events_count": number,
+      "total_bookings": number
+    }
+  ],
+  "top_genres": [
+    {
+      "artists__genre__name": "string",
+      "event_count": number
+    }
+  ]
+}
+
+================================================================================
+                  5. DATA MODELS & TYPESCRIPT INTERFACES
+================================================================================
+
+Create these TypeScript interfaces in your frontend:
+
+// src/types/api.ts
+
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  profile: UserProfile;
+}
+
+export interface UserProfile {
+  role: 'manager' | 'customer' | 'admin';
+  phone: string;
+  date_of_birth: string | null;
+  profile_picture: string | null;
+  is_verified: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Genre {
+  id: number;
+  name: string;
+  description: string;
+  created_at: string;
+}
+
+export interface Artist {
+  id: number;
+  name: string;
+  genre: number;
+  genre_name: string;
+  contact_email: string;
+  contact_phone: string;
+  bio: string;
+  image: string | null;
+  followers: number;
+  popularity: number;
+  social_media_links: {
+    spotify?: string;
+    instagram?: string;
+    twitter?: string;
+    facebook?: string;
+  };
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Album {
+  id: number;
+  artist: number;
+  album_name: string;
+  release_date: string;
+  total_tracks: number;
+  cover_image: string | null;
+  description: string;
+  spotify_url: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Track {
+  id: number;
+  album: number;
+  track_number: number;
+  track_name: string;
+  duration_ms: number;
+  duration_formatted: string;
+  spotify_url: string;
+  preview_url: string;
+  is_explicit: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Venue {
+  id: number;
+  name: string;
+  location: string;
+  address: string;
+  city: string;
+  state: string;
+  capacity: number;
+  amenities: string[];
+  contact_email: string;
+  contact_phone: string;
+  latitude: string | null;
+  longitude: string | null;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface EventType {
+  id: number;
+  name: string;
+  description: string;
+}
+
+export interface Event {
+  id: number;
+  name: string;
+  description: string;
+  date: string;
+  start_time: string;
+  end_time: string;
+  venue: number;
+  venue_name: string;
+  event_type: number;
+  event_type_name: string;
+  poster_image: string | null;
+  ticket_price: string;
+  max_tickets_per_customer: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Ticket {
+  id: number;
+  event: number;
+  seat_number: string;
+  section: string;
+  base_price: string;
+  final_price: string;
+  current_tier: number | null;
+  status: 'available' | 'booked' | 'cancelled' | 'expired';
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Booking {
+  id: number;
+  customer: number;
+  event: number;
+  tickets: number[];
+  total_amount: string;
+  booking_date: string;
+  status: 'pending' | 'confirmed' | 'cancelled' | 'refunded';
+  payment_reference: string;
+  special_requests: string;
+}
+
+export interface PriceTier {
+  id: number;
+  tier_name: string;
+  tier_percentage_start: number;
+  tier_percentage_end: number;
+  price: string;
+  created_date: string;
+  is_active: boolean;
+}
+
+export interface CurrentPrice {
+  event_id: number;
+  event_name: string;
+  current_booking_percentage: number;
+  current_tier: {
+    id: number;
+    tier_name: string;
+    price: string;
+    tier_range: string;
+  };
+  available_tickets: number;
+  total_tickets: number;
+}
+
+export interface SearchResult {
+  type: 'artist' | 'event' | 'venue';
+  id: number;
+  name: string;
+  genre?: string;
+  date?: string;
+  venue?: string;
+  city?: string;
+  capacity?: number;
+  url: string;
+}
+
+export interface EventAnalytics {
+  event: {
+    id: number;
+    name: string;
+    date: string;
+    venue: string;
+    total_capacity: number;
+  };
+  analytics: {
+    total_bookings: number;
+    total_revenue: number;
+    avg_rating: number | null;
+    booking_percentage: number;
+    tickets_available: number;
+  };
+  revenue_by_tier: Array<{
+    tickets__current_tier__tier_name: string;
+    tier_revenue: number;
+    tier_bookings: number;
+  }>;
+  booking_velocity_per_day: number;
+  top_customer_genres: Array<{
+    customer__preferred_genres__name: string;
+    count: number;
+  }>;
+  last_updated: string | null;
+}
+
+export interface PaginatedResponse<T> {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T[];
+}
+
+================================================================================
+                     6. API RESPONSE STRUCTURES
+================================================================================
+
+Standard Pagination Response:
+{
+  "count": 100,
+  "next": "http://localhost:8000/api/events/events/?page=2",
+  "previous": null,
+  "results": [/* array of objects */]
+}
+
+Standard Error Response:
+{
+  "detail": "Error message",
+  "errors": {
+    "field_name": ["Error for this field"]
+  }
+}
+
+Success Response (POST/PUT):
+{
+  "id": number,
+  /* ... created/updated object data */
+}
+
+Delete Response:
+Status: 204 No Content
+
+================================================================================
+                   7. FRONTEND IMPLEMENTATION GUIDE
+================================================================================
+
+--------------------------------------------------------------------------------
+                          RECOMMENDED FILE STRUCTURE
+--------------------------------------------------------------------------------
+
+frontend/src/
+├── lib/
+│   ├── api/
+│   │   ├── client.ts              # Axios/Fetch client setup
+│   │   ├── artists.ts             # Artist API calls
+│   │   ├── events.ts              # Event API calls
+│   │   ├── bookings.ts            # Booking API calls
+│   │   ├── pricing.ts             # Pricing API calls
+│   │   ├── search.ts              # Search API calls
+│   │   ├── analytics.ts           # Analytics API calls
+│   │   └── auth.ts                # Authentication API calls
+│   └── utils/
+│       ├── formatters.ts          # Date, currency formatters
+│       └── validators.ts          # Form validators
+├── types/
+│   └── api.ts                     # All TypeScript interfaces
+├── hooks/
+│   ├── useEvents.ts               # Event fetching hooks
+│   ├── useArtists.ts              # Artist fetching hooks
+│   ├── useBookings.ts             # Booking hooks
+│   └── useAuth.ts                 # Authentication hooks
+├── components/
+│   ├── events/
+│   │   ├── EventCard.tsx
+│   │   ├── EventList.tsx
+│   │   └── EventDetails.tsx
+│   ├── artists/
+│   │   ├── ArtistCard.tsx
+│   │   └── ArtistList.tsx
+│   ├── bookings/
+│   │   ├── BookingForm.tsx
+│   │   └── BookingList.tsx
+│   ├── search/
+│   │   └── SearchBar.tsx
+│   └── common/
+│       ├── Header.tsx
+│       └── Footer.tsx
+└── app/
+    ├── (public)/
+    │   ├── page.tsx               # Home
+    │   ├── events/
+    │   │   ├── page.tsx           # Events list
+    │   │   └── [id]/page.tsx      # Event details
+    │   ├── artists/
+    │   │   ├── page.tsx           # Artists list
+    │   │   └── [id]/page.tsx      # Artist details
+    │   └── search/page.tsx
+    ├── (auth)/
+    │   ├── login/page.tsx
+    │   └── register/page.tsx
+    ├── (customer)/
+    │   ├── bookings/page.tsx
+    │   └── profile/page.tsx
+    └── (manager)/
+        ├── dashboard/page.tsx
+        ├── events/
+        │   ├── page.tsx           # Manage events
+        │   ├── create/page.tsx    # Create event
+        │   └── [id]/edit/page.tsx # Edit event
+        └── analytics/
+            └── [eventId]/page.tsx
+
+--------------------------------------------------------------------------------
+                          API CLIENT SETUP
+--------------------------------------------------------------------------------
+
+// src/lib/api/client.ts
+
+import axios from 'axios';
+
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+export const apiClient = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true, // For session-based auth
+});
+
+// Request interceptor for CSRF token
+apiClient.interceptors.request.use((config) => {
+  const csrfToken = getCookie('csrftoken');
+  if (csrfToken) {
+    config.headers['X-CSRFToken'] = csrfToken;
+  }
+  return config;
+});
+
+// Response interceptor for error handling
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Redirect to login
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
+function getCookie(name: string): string | null {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+  return null;
+}
+
+--------------------------------------------------------------------------------
+                       EXAMPLE API SERVICE FUNCTIONS
+--------------------------------------------------------------------------------
+
+// src/lib/api/events.ts
+
+import { apiClient } from './client';
+import type { Event, PaginatedResponse } from '@/types/api';
+
+export const eventsAPI = {
+  // Get all events
+  getAll: async (params?: {
+    page?: number;
+    date?: string;
+    venue?: number;
+    is_active?: boolean;
+  }) => {
+    const { data } = await apiClient.get<PaginatedResponse<Event>>(
+      '/api/events/events/',
+      { params }
+    );
+    return data;
+  },
+
+  // Get single event
+  getById: async (id: number) => {
+    const { data } = await apiClient.get<Event>(`/api/events/events/${id}/`);
+    return data;
+  },
+
+  // Create event
+  create: async (eventData: Partial<Event>) => {
+    const { data } = await apiClient.post<Event>(
+      '/api/events/events/',
+      eventData
+    );
+    return data;
+  },
+
+  // Update event
+  update: async (id: number, eventData: Partial<Event>) => {
+    const { data } = await apiClient.patch<Event>(
+      `/api/events/events/${id}/`,
+      eventData
+    );
+    return data;
+  },
+
+  // Delete event
+  delete: async (id: number) => {
+    await apiClient.delete(`/api/events/events/${id}/`);
+  },
+};
+
+// src/lib/api/pricing.ts
+
+import { apiClient } from './client';
+import type { PriceTier, CurrentPrice } from '@/types/api';
+
+export const pricingAPI = {
+  // Get price tiers for an event
+  getTiers: async (eventId: number) => {
+    const { data } = await apiClient.get<{
+      event_id: number;
+      event_name: string;
+      tiers: PriceTier[];
+    }>(`/api/pricing/tiers/${eventId}/`);
+    return data;
+  },
+
+  // Get current price for an event
+  getCurrentPrice: async (eventId: number) => {
+    const { data } = await apiClient.get<CurrentPrice>(
+      `/api/pricing/current-price/${eventId}/`
+    );
+    return data;
+  },
+};
+
+// src/lib/api/search.ts
+
+import { apiClient } from './client';
+import type { SearchResult } from '@/types/api';
+
+export const searchAPI = {
+  // Autocomplete search
+  autocomplete: async (query: string) => {
+    const { data } = await apiClient.get<{
+      query: string;
+      count: number;
+      results: SearchResult[];
+    }>('/api/search/autocomplete/', { params: { q: query } });
+    return data;
+  },
+
+  // Get popular searches
+  getPopular: async (limit: number = 10) => {
+    const { data } = await apiClient.get('/api/search/popular/', {
+      params: { limit },
+    });
+    return data;
+  },
+};
+
+// src/lib/api/bookings.ts
+
+import { apiClient } from './client';
+import type { Booking } from '@/types/api';
+
+export const bookingsAPI = {
+  // Create a booking
+  create: async (bookingData: {
+    event: number;
+    tickets: number[];
+    total_amount: string;
+    special_requests?: string;
+  }) => {
+    const { data } = await apiClient.post<Booking>(
+      '/api/customers/book/',
+      bookingData
+    );
+    return data;
+  },
+
+  // Get user's bookings
+  getMyBookings: async () => {
+    const { data } = await apiClient.get('/api/customers/my-bookings/');
+    return data;
+  },
+};
+
+--------------------------------------------------------------------------------
+                       EXAMPLE REACT HOOKS
+--------------------------------------------------------------------------------
+
+// src/hooks/useEvents.ts
+
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { eventsAPI } from '@/lib/api/events';
+
+export function useEvents(params?: Parameters<typeof eventsAPI.getAll>[0]) {
+  return useQuery({
+    queryKey: ['events', params],
+    queryFn: () => eventsAPI.getAll(params),
+  });
+}
+
+export function useEvent(id: number) {
+  return useQuery({
+    queryKey: ['events', id],
+    queryFn: () => eventsAPI.getById(id),
+    enabled: !!id,
+  });
+}
+
+export function useCreateEvent() {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: eventsAPI.create,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['events'] });
+    },
+  });
+}
+
+// src/hooks/useCurrentPrice.ts
+
+import { useQuery } from '@tanstack/react-query';
+import { pricingAPI } from '@/lib/api/pricing';
+
+export function useCurrentPrice(eventId: number) {
+  return useQuery({
+    queryKey: ['currentPrice', eventId],
+    queryFn: () => pricingAPI.getCurrentPrice(eventId),
+    enabled: !!eventId,
+    refetchInterval: 30000, // Refetch every 30 seconds for dynamic pricing
+  });
+}
+
+// src/hooks/useSearch.ts
+
+import { useQuery } from '@tanstack/react-query';
+import { searchAPI } from '@/lib/api/search';
+import { useState, useEffect } from 'react';
+
+export function useSearch(initialQuery: string = '') {
+  const [query, setQuery] = useState(initialQuery);
+  const [debouncedQuery, setDebouncedQuery] = useState(query);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 300);
+
+    return () => clearTimeout(handler);
+  }, [query]);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['search', debouncedQuery],
+    queryFn: () => searchAPI.autocomplete(debouncedQuery),
+    enabled: debouncedQuery.length >= 2,
+  });
+
+  return { query, setQuery, results: data?.results || [], isLoading };
+}
+
+================================================================================
+                    8. STATE MANAGEMENT RECOMMENDATIONS
+================================================================================
+
+Recommended: React Query (TanStack Query) for server state
+- Already shown in hooks examples above
+- Handles caching, refetching, pagination automatically
+
+For global client state (if needed):
+- Zustand (lightweight, easy to use)
+- Redux Toolkit (if you prefer Redux)
+
+Example Zustand Store for Auth:
+
+// src/store/authStore.ts
+
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import type { User } from '@/types/api';
+
+interface AuthState {
+  user: User | null;
+  isAuthenticated: boolean;
+  setUser: (user: User | null) => void;
+  logout: () => void;
+}
+
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      isAuthenticated: false,
+      setUser: (user) => set({ user, isAuthenticated: !!user }),
+      logout: () => set({ user: null, isAuthenticated: false }),
+    }),
+    {
+      name: 'auth-storage',
+    }
+  )
+);
+
+================================================================================
+                         9. ENVIRONMENT VARIABLES
+================================================================================
+
+Create .env.local in frontend root:
+
+# API Configuration
+NEXT_PUBLIC_API_URL=http://localhost:8000
+
+# Optional: If you add JWT later
+NEXT_PUBLIC_JWT_SECRET=your-jwt-secret
+
+================================================================================
+                       10. COMMON API PATTERNS
+================================================================================
+
+--------------------------------------------------------------------------------
+                         HANDLING IMAGE UPLOADS
+--------------------------------------------------------------------------------
+
+// For FormData with images (artists, events)
+
+const uploadArtist = async (formData: FormData) => {
+  const { data } = await apiClient.post('/api/artists/artists/', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return data;
+};
+
+// In React component:
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  const formData = new FormData(e.currentTarget);
+  
+  // Add image file
+  if (imageFile) {
+    formData.append('image', imageFile);
+  }
+  
+  await uploadArtist(formData);
+};
+
+--------------------------------------------------------------------------------
+                         PAGINATION HANDLING
+--------------------------------------------------------------------------------
+
+// Infinite scroll example
+import { useInfiniteQuery } from '@tanstack/react-query';
+
+export function useInfiniteEvents() {
+  return useInfiniteQuery({
+    queryKey: ['events', 'infinite'],
+    queryFn: ({ pageParam = 1 }) => 
+      eventsAPI.getAll({ page: pageParam }),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.next) {
+        const url = new URL(lastPage.next);
+        return url.searchParams.get('page');
+      }
+      return undefined;
+    },
+  });
+}
+
+--------------------------------------------------------------------------------
+                         ERROR HANDLING
+--------------------------------------------------------------------------------
+
+// Centralized error handling
+
+export const handleAPIError = (error: any) => {
+  if (error.response) {
+    // Server responded with error
+    const status = error.response.status;
+    const data = error.response.data;
+    
+    switch (status) {
+      case 400:
+        return { message: 'Invalid request', details: data };
+      case 401:
+        return { message: 'Unauthorized', details: 'Please login' };
+      case 403:
+        return { message: 'Forbidden', details: 'Access denied' };
+      case 404:
+        return { message: 'Not found', details: data };
+      case 500:
+        return { message: 'Server error', details: 'Please try again later' };
+      default:
+        return { message: 'Error occurred', details: data };
+    }
+  } else if (error.request) {
+    // Request made but no response
+    return { message: 'Network error', details: 'Check your connection' };
+  } else {
+    // Something else happened
+    return { message: 'Error', details: error.message };
+  }
+};
+
+// Usage in component:
+try {
+  await eventsAPI.create(eventData);
+  toast.success('Event created successfully');
+} catch (error) {
+  const errorInfo = handleAPIError(error);
+  toast.error(errorInfo.message);
+  console.error(errorInfo.details);
+}
+
+--------------------------------------------------------------------------------
+                         DYNAMIC PRICING UI
+--------------------------------------------------------------------------------
+
+Display current price that updates in real-time:
+
+// Component example
+import { useCurrentPrice } from '@/hooks/useCurrentPrice';
+
+export function EventPricing({ eventId }: { eventId: number }) {
+  const { data, isLoading } = useCurrentPrice(eventId);
+  
+  if (isLoading) return <div>Loading price...</div>;
+  if (!data) return <div>Price unavailable</div>;
+  
+  return (
+    <div className="pricing-card">
+      <h3>Current Price: ${data.current_tier.price}</h3>
+      <p>Tier: {data.current_tier.tier_name}</p>
+      <p>Booking: {data.current_booking_percentage.toFixed(1)}%</p>
+      <p>Available Tickets: {data.available_tickets}</p>
+      
+      {/* Progress bar */}
+      <div className="progress-bar">
+        <div 
+          style={{ width: `${data.current_booking_percentage}%` }}
+          className="progress-fill"
+        />
+      </div>
+      
+      <p className="text-sm text-gray-600">
+        Price increases as more tickets are sold
+      </p>
+    </div>
+  );
+}
+
+================================================================================
+                         KEY IMPLEMENTATION NOTES
+================================================================================
+
+1. CSRF PROTECTION
+   - Get CSRF token from cookies for POST/PUT/DELETE requests
+   - Token name: 'csrftoken'
+   - Header: 'X-CSRFToken'
+
+2. AUTHENTICATION
+   - Session-based authentication
+   - Use 'withCredentials: true' in axios
+   - Store user profile in state management (Zustand/Redux)
+
+3. PAGINATION
+   - Backend uses PageNumberPagination
+   - Default page size: 20 items
+   - Use ?page=N query parameter
+
+4. DYNAMIC PRICING
+   - Refetch current price regularly (every 30 seconds)
+   - Show booking percentage to create urgency
+   - Display tier transitions clearly
+
+5. SEARCH
+   - Implement debouncing (300ms recommended)
+   - Minimum 2 characters for search
+   - Show type badges (artist/event/venue)
+
+6. IMAGE HANDLING
+   - Use multipart/form-data for uploads
+   - Display images with fallback placeholders
+   - Media URL: http://localhost:8000/media/
+
+7. ROLE-BASED RENDERING
+   - Manager: Can create/edit events, view analytics
+   - Customer: Can book tickets, view bookings
+   - Check user.profile.role for permissions
+
+8. DATE/TIME FORMATTING
+   - Backend returns: YYYY-MM-DD, HH:MM:SS
+   - Convert to user-friendly format in frontend
+   - Consider timezone handling
+
+9. REAL-TIME UPDATES
+   - Refetch analytics at intervals
+   - Update ticket availability on booking
+   - Show sold-out status immediately
+
+10. ERROR MESSAGES
+    - Show user-friendly error messages
+    - Log detailed errors to console
+    - Handle network failures gracefully
+
+================================================================================
+                         TESTING ENDPOINTS
+================================================================================
+
+Before implementing, test endpoints with:
+
+1. Postman/Insomnia
+2. Browser DevTools (for GET requests)
+3. Django Admin (http://localhost:8000/admin/)
+
+Backend must be running:
+cd backend
+python manage.py runserver
+
+Database must be set up with data for testing.
+
+================================================================================
+                         ADDITIONAL RESOURCES
+================================================================================
+
+Backend Documentation Files:
+- backend/README.md - Main backend documentation
+- backend/README_PHASE2.md - Phase 2 implementation details
+- backend/prd_event_management.md - Product requirements
+
+Django REST Framework Docs:
+- https://www.django-rest-framework.org/
+
+Next.js Docs:
+- https://nextjs.org/docs
+
+React Query Docs:
+- https://tanstack.com/query/latest
+
+================================================================================
+                         QUICK START CHECKLIST
+================================================================================
+
+□ 1. Set up Next.js project with TypeScript
+□ 2. Install dependencies: axios, @tanstack/react-query, zustand
+□ 3. Create .env.local with API_URL
+□ 4. Copy TypeScript interfaces to src/types/api.ts
+□ 5. Create API client in src/lib/api/client.ts
+□ 6. Create API service functions for each module
+□ 7. Set up authentication store and API
+□ 8. Create reusable hooks for data fetching
+□ 9. Build component structure (events, artists, bookings)
+□ 10. Implement routing with Next.js App Router
+□ 11. Add role-based route protection
+□ 12. Create forms with validation
+□ 13. Add error handling and loading states
+□ 14. Implement search with debouncing
+□ 15. Build dynamic pricing display
+□ 16. Create analytics dashboards for managers
+□ 17. Add responsive design
+□ 18. Test all user flows (booking, searching, managing)
+□ 19. Optimize performance (image optimization, caching)
+□ 20. Add error boundaries and fallback UI
+
+================================================================================
+                         SUPPORT & TROUBLESHOOTING
+================================================================================
+
+Common Issues:
+
+1. CORS Errors:
+   - Ensure backend has CORS configured
+   - Check withCredentials setting
+   - Verify API_URL is correct
+
+2. CSRF Token Missing:
+   - Get token from cookies on first request
+   - Send with X-CSRFToken header
+   - Use same domain for frontend/backend in dev
+
+3. 401 Unauthorized:
+   - Check authentication state
+   - Verify session cookie is being sent
+   - Redirect to login if needed
+
+4. Data Not Showing:
+   - Check Django backend is running
+   - Verify database has test data
+   - Check browser network tab for API responses
+
+5. Image Upload Failed:
+   - Use multipart/form-data
+   - Check file size limits
+   - Verify media folder permissions
+
+================================================================================
+                         END OF DOCUMENTATION
+================================================================================
+
+Last Updated: November 10, 2025
+Backend Version: Django 5.2.7
+API Version: v1
+
+For questions or issues, check the backend README files or review Django admin
+panel for data verification.
+
+Good luck with your frontend implementation! 🚀
