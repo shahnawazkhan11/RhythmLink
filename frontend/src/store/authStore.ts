@@ -17,12 +17,14 @@ import { getErrorMessage } from '@/lib/api/client';
 interface AuthState {
   // State
   user: UserWithProfile | null;
+  token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
 
   // Actions
   setUser: (user: UserWithProfile | null) => void;
+  setToken: (token: string | null) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
   login: (username: string, password: string) => Promise<void>;
@@ -47,6 +49,7 @@ export const useAuthStore = create<AuthState>()(
     (set, get) => ({
       // Initial State
       user: null,
+      token: null,
       isAuthenticated: false,
       isLoading: false,
       error: null,
@@ -58,6 +61,10 @@ export const useAuthStore = create<AuthState>()(
           isAuthenticated: !!user,
           error: null,
         });
+      },
+
+      setToken: (token) => {
+        set({ token });
       },
 
       setLoading: (loading) => {
@@ -79,6 +86,7 @@ export const useAuthStore = create<AuthState>()(
           const response = await authAPI.login({ username, password });
           set({
             user: response.user,
+            token: response.token,
             isAuthenticated: true,
             isLoading: false,
             error: null,
@@ -87,6 +95,7 @@ export const useAuthStore = create<AuthState>()(
           const errorMessage = getErrorMessage(error);
           set({
             user: null,
+            token: null,
             isAuthenticated: false,
             isLoading: false,
             error: errorMessage,
@@ -102,6 +111,7 @@ export const useAuthStore = create<AuthState>()(
           await authAPI.logout();
           set({
             user: null,
+            token: null,
             isAuthenticated: false,
             isLoading: false,
             error: null,
@@ -110,6 +120,7 @@ export const useAuthStore = create<AuthState>()(
           // Even if logout fails, clear local state
           set({
             user: null,
+            token: null,
             isAuthenticated: false,
             isLoading: false,
             error: null,
@@ -187,6 +198,7 @@ export const useAuthStore = create<AuthState>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         user: state.user,
+        token: state.token,
         isAuthenticated: state.isAuthenticated,
       }),
     }

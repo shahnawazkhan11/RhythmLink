@@ -76,7 +76,7 @@ export function LoginForm() {
       router.push('/');
     } catch (err) {
       // Error is already set in the store
-      console.error('Login failed:', err);
+      console.log('Login failed:', err);
     }
   };
 

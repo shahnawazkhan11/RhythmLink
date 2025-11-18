@@ -108,7 +108,7 @@ export default function ManagerDashboardPage() {
                 <h3 className="text-lg font-semibold">Top Performing Events</h3>
               </CardHeader>
               <CardBody>
-                {dashboard.top_performing_events.length > 0 ? (
+                {dashboard.top_performing_events && dashboard.top_performing_events.length > 0 ? (
                   <div className="space-y-3">
                     {dashboard.top_performing_events.slice(0, 5).map((item) => (
                       <div
@@ -142,7 +142,7 @@ export default function ManagerDashboardPage() {
                 <h3 className="text-lg font-semibold">Revenue Trend</h3>
               </CardHeader>
               <CardBody>
-                {dashboard.revenue_trend.length > 0 ? (
+                {dashboard.revenue_trend && dashboard.revenue_trend.length > 0 ? (
                   <div className="space-y-2">
                     {dashboard.revenue_trend.slice(-7).map((item) => (
                       <div key={item.date} className="flex justify-between items-center">
@@ -164,7 +164,7 @@ export default function ManagerDashboardPage() {
         {/* Upcoming Events Tab */}
         <TabsContent value="events">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {dashboard.upcoming_events.length > 0 ? (
+            {dashboard.upcoming_events && dashboard.upcoming_events.length > 0 ? (
               dashboard.upcoming_events.map((event) => (
                 <EventCard
                   key={event.id}
@@ -183,7 +183,7 @@ export default function ManagerDashboardPage() {
         {/* Recent Bookings Tab */}
         <TabsContent value="bookings">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {dashboard.recent_bookings.length > 0 ? (
+            {dashboard.recent_bookings && dashboard.recent_bookings.length > 0 ? (
               dashboard.recent_bookings.map((booking) => (
                 <BookingCard key={booking.id} booking={booking} showActions={false} />
               ))

@@ -92,6 +92,21 @@ async function fetchAPI<T>(endpoint: string, options: FetchOptions = {}): Promis
     ...(headers as Record<string, string>),
   };
 
+  // Add Authorization token if available
+  if (typeof window !== 'undefined') {
+    const authStorage = localStorage.getItem('rhythmlink-auth-storage');
+    if (authStorage) {
+      try {
+        const { state } = JSON.parse(authStorage);
+        if (state?.token) {
+          requestHeaders['Authorization'] = `Token ${state.token}`;
+        }
+      } catch (e) {
+        // Ignore parse errors
+      }
+    }
+  }
+
   // Add Content-Type for JSON data
   if (data && !(data instanceof FormData)) {
     requestHeaders['Content-Type'] = 'application/json';

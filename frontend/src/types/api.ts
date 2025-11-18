@@ -53,6 +53,7 @@ export interface LoginRequest {
 
 export interface LoginResponse {
   user: UserWithProfile;
+  token: string;
   message: string;
 }
 
@@ -282,14 +283,14 @@ export interface ManagerDashboard {
   active_events: number;
   total_revenue: string;
   total_bookings: number;
-  upcoming_events: Event[];
-  top_performing_events: Array<{
+  upcoming_events?: Event[];
+  top_performing_events?: Array<{
     event: Event;
     revenue: string;
     tickets_sold: number;
   }>;
-  recent_bookings: Booking[];
-  revenue_trend: Array<{
+  recent_bookings?: Booking[];
+  revenue_trend?: Array<{
     date: string;
     revenue: string;
   }>;
