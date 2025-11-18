@@ -95,7 +95,8 @@ class Performs(models.Model):
     is_headliner = models.BooleanField(default=False)
     
     def __str__(self):
-        return f"{self.artist.name} at {self.event.name}"
+        full_name = f"{self.artist.first_name} {self.artist.last_name}".strip() if self.artist.last_name else self.artist.first_name
+        return f"{full_name} at {self.event.name}"
     
     class Meta:
         unique_together = ['artist', 'event']

@@ -16,7 +16,8 @@ class Genre(models.Model):
 
 class Artist(models.Model):
     """Artist/Band information"""
-    name = models.CharField(max_length=200)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100, blank=True)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='artists')
     contact_email = models.EmailField(blank=True)
     contact_phone = models.CharField(max_length=20, blank=True)
@@ -33,12 +34,12 @@ class Artist(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return self.name
+        return f"{self.first_name} {self.last_name}".strip()
     
     class Meta:
-        ordering = ['name']
+        ordering = ['first_name', 'last_name']
         indexes = [
-            models.Index(fields=['name']),  # For search functionality
+            models.Index(fields=['first_name', 'last_name']),  # For search functionality
             models.Index(fields=['genre', 'is_active']),
             models.Index(fields=['-popularity']),  # For popular artists
         ]
@@ -60,7 +61,8 @@ class Album(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return f"{self.album_name} - {self.artist.name}"
+        full_name = f"{self.first_name} {self.last_name}".strip() if self.last_name else self.first_name
+        return f"{self.album_name} - {full_name}"
     
     class Meta:
         ordering = ['-release_date']

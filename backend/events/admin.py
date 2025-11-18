@@ -38,7 +38,7 @@ class EventAdmin(admin.ModelAdmin):
 class PerformsAdmin(admin.ModelAdmin):
     list_display = ['artist', 'event', 'performance_time', 'duration_minutes', 'is_headliner']
     list_filter = ['is_headliner', 'event__date']
-    search_fields = ['artist__name', 'event__name']
+    search_fields = ['artist__first_name', 'artist__last_name', 'event__name']
 
 
 @admin.register(EventManager)

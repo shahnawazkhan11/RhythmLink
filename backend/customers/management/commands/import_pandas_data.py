@@ -79,9 +79,16 @@ class Command(BaseCommand):
             genre_name = str(row.get('genres', 'Unknown')).strip()
             genre, _ = Genre.objects.get_or_create(name=genre_name)
             
+            # Split name into first and last name
+            full_name = str(row['name']).strip()
+            name_parts = full_name.split(' ', 1)
+            first_name = name_parts[0]
+            last_name = name_parts[1] if len(name_parts) > 1 else ''
+            
             # Create artist
             artist, created = Artist.objects.update_or_create(
-                name=str(row['name']).strip(),
+                first_name=first_name,
+                last_name=last_name,
                 defaults={
                     'genre': genre,
                     'followers': int(row.get('followers', 0)) if pd.notna(row.get('followers')) else 0,
@@ -90,7 +97,8 @@ class Command(BaseCommand):
             )
             
             if created:
-                self.stdout.write(f'  [+] Created artist: {artist.name}')
+                full_name_display = f"{artist.first_name} {artist.last_name}".strip() if artist.last_name else artist.first_name
+                self.stdout.write(f'  [+] Created artist: {full_name_display}')
         
         self.stdout.write(self.style.SUCCESS(f'  [OK] Imported {Artist.objects.count()} artists'))
 
@@ -242,11 +250,13 @@ class Command(BaseCommand):
                 defaults={'location': location, 'capacity': 5000}
             )
             
+            artist_full_name = f"{artist.first_name} {artist.last_name}".strip() if artist.last_name else artist.first_name
+            
             event, created = Event.objects.update_or_create(
                 name=str(row['name']).strip(),
                 date=event_date,
                 defaults={
-                    'description': f'Live performance by {artist.name}',
+                    'description': f'Live performance by {artist_full_name}',
                     'venue': venue,
                     'event_type': concert_type,
                     'status': 'upcoming' if event_date > timezone.now().date() else 'completed',
