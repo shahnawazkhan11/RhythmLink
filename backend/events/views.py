@@ -4,6 +4,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Q
 from .models import Event, Venue, EventType
 from .serializers import EventSerializer, VenueSerializer, EventTypeSerializer
+from pricing.services import DynamicPricingService
 
 
 class EventViewSet(viewsets.ModelViewSet):
@@ -13,6 +14,17 @@ class EventViewSet(viewsets.ModelViewSet):
     filterset_fields = ['is_active', 'venue', 'event_type', 'date']
     search_fields = ['name', 'description', 'venue__name', 'venue__city', 'event_type__name']
     ordering_fields = ['date', 'created_at', 'name']
+    
+    def perform_create(self, serializer):
+        """Create event and automatically setup dynamic pricing tiers"""
+        event = serializer.save()
+        
+        # Automatically create default price tiers for the event
+        DynamicPricingService.create_default_price_tiers(
+            event=event,
+            manager=self.request.user,
+            base_price=event.ticket_price
+        )
     
     def get_queryset(self):
         queryset = super().get_queryset()

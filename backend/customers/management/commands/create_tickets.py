@@ -2,6 +2,7 @@
 from django.core.management.base import BaseCommand
 from events.models import Event
 from customers.models import Ticket
+from pricing.services import DynamicPricingService
 
 
 class Command(BaseCommand):
@@ -47,6 +48,10 @@ class Command(BaseCommand):
             tickets_to_create = tickets_per_event - existing_tickets
             created_count = 0
 
+            # Get current price tier for the event
+            current_tier = DynamicPricingService.calculate_current_tier(event)
+            ticket_price = current_tier.price if current_tier else event.ticket_price
+            
             # Create tickets
             for i in range(tickets_to_create):
                 seat_number = f"SEAT-{existing_tickets + i + 1:04d}"
@@ -57,16 +62,22 @@ class Command(BaseCommand):
                     seat_number=seat_number,
                     section=section,
                     base_price=event.ticket_price,
-                    final_price=event.ticket_price,
+                    final_price=ticket_price,
+                    current_tier=current_tier,
                     status='available'
                 )
                 created_count += 1
 
             total_created += created_count
+            
+            # Show pricing info
+            tier_info = f" at ${ticket_price}" if current_tier else f" at base price ${event.ticket_price}"
+            tier_name = f" ({current_tier.tier_name})" if current_tier else ""
+            
             self.stdout.write(
                 self.style.SUCCESS(
                     f'Created {created_count} tickets for event "{event.name}" '
-                    f'(Total: {existing_tickets + created_count})'
+                    f'(Total: {existing_tickets + created_count}){tier_info}{tier_name}'
                 )
             )
 
