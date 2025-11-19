@@ -52,9 +52,17 @@ export default function ManagerDashboardPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Manager Dashboard</h1>
-        <p className="text-gray-600">Manage your events and view analytics</p>
+      <div className="mb-8 flex justify-between items-start">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Manager Dashboard</h1>
+          <p className="text-gray-600">Manage your events and view analytics</p>
+        </div>
+        <button
+          onClick={() => router.push('/manager/events/create')}
+          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+        >
+          + Create Event
+        </button>
       </div>
 
       {/* Stats Cards */}

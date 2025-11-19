@@ -102,13 +102,13 @@ export function EventCard({
         <CardFooter>
           <div className="flex space-x-2">
             {onView && (
-              <Button variant="secondary" onClick={() => onView(event.id)} className="flex-1">
-                View Details
-              </Button>
-            )}
-            {onBook && isActive && (
-              <Button variant="primary" onClick={() => onBook(event.id)} className="flex-1">
-                Book Now
+              <Button 
+                variant={isActive ? "primary" : "secondary"} 
+                onClick={() => onView(event.id)} 
+                className="flex-1"
+                disabled={!isActive}
+              >
+                {isActive ? 'Book Tickets' : 'View Details'}
               </Button>
             )}
           </div>

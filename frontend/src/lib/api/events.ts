@@ -36,7 +36,7 @@ export async function getEvent(id: number): Promise<Event> {
  * Create new event
  * POST /api/events/events/
  */
-export async function createEvent(data: FormData): Promise<Event> {
+export async function createEvent(data: any): Promise<Event> {
   return apiClient.post<Event>('/api/events/events/', data);
 }
 

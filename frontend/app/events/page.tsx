@@ -20,15 +20,26 @@ export default function EventsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     const loadEvents = async () => {
       try {
-        const response = await fetchEvents({
+        const params: any = {
           page: currentPage,
-          search: searchQuery || undefined,
-          is_active: true,
-        });
+        };
+        
+        // Only add search if it has value
+        if (searchQuery && searchQuery.trim()) {
+          params.search = searchQuery.trim();
+        }
+        
+        // Filter by active unless "show all" is toggled
+        if (!showAll) {
+          params.is_active = true;
+        }
+        
+        const response = await fetchEvents(params);
         // Calculate total pages (assuming 20 items per page from backend)
         if (response.count) {
           setTotalPages(Math.ceil(response.count / 20));
@@ -39,7 +50,7 @@ export default function EventsPage() {
     };
 
     loadEvents();
-  }, [currentPage, searchQuery, fetchEvents]);
+  }, [currentPage, searchQuery, showAll]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -49,9 +60,21 @@ export default function EventsPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Discover Events</h1>
-        <p className="text-gray-600">Find and book tickets for upcoming events</p>
+      <div className="mb-8 flex justify-between items-start">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Discover Events</h1>
+          <p className="text-gray-600">Find and book tickets for upcoming events</p>
+        </div>
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            showAll
+              ? 'bg-blue-600 text-white hover:bg-blue-700'
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`}
+        >
+          {showAll ? 'Show Active Only' : 'Show All Events'}
+        </button>
       </div>
 
       {/* Search Bar */}
@@ -87,7 +110,6 @@ export default function EventsPage() {
                 key={event.id}
                 event={event}
                 onView={(id) => router.push(`/events/${id}`)}
-                onBook={(id) => router.push(`/events/${id}/book`)}
               />
             ))}
           </div>
