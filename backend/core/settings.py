@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # Third party apps
     'rest_framework',
     'rest_framework.authtoken',  # For token authentication
+    'django_filters',  # For filtering and search
     'jazzmin',
     'corsheaders',
 

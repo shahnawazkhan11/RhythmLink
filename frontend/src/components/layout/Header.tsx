@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import { Button } from '../ui/Button';
+import { SearchAutocomplete } from '../features/SearchAutocomplete';
 
 export function Header() {
   const { user, logout } = useAuth();
@@ -47,6 +48,11 @@ export function Header() {
             </div>
             <span className="text-xl font-bold text-gray-900">RhythmLink</span>
           </Link>
+
+          {/* Search Bar - Desktop */}
+          <div className="hidden md:block flex-1 max-w-xl mx-8">
+            <SearchAutocomplete />
+          </div>
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-6">

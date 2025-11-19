@@ -10,4 +10,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('book/', views.BookingCreateView.as_view(), name='create-booking'),
     path('my-bookings/', views.CustomerBookingsView.as_view(), name='my-bookings'),
+    path('bookings/<int:pk>/', views.BookingDetailView.as_view(), name='booking-detail'),
+    path('tickets/', views.TicketListView.as_view(), name='tickets-list'),
 ]

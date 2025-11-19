@@ -1,36 +1,39 @@
 // ============================================================================
 // SEARCH API
-// All search-related API calls
+// Autocomplete and typo-tolerant search
 // ============================================================================
 
 import { apiClient } from './client';
-import type { SearchResult, PopularSearch } from '@/types/api';
 
-// ============================================================================
-// SEARCH & AUTOCOMPLETE
-// ============================================================================
+export interface SearchResult {
+  type: 'event' | 'artist' | 'venue';
+  id: number;
+  title: string;
+  subtitle: string;
+  score: number;
+  matched_field: string;
+  url: string;
+  price?: string;
+}
+
+export interface AutocompleteResponse {
+  query: string;
+  results: SearchResult[];
+  count: number;
+  message?: string;
+  error?: string;
+}
 
 /**
- * Autocomplete search across events, artists, and venues
+ * Autocomplete search with typo tolerance
  * GET /api/search/autocomplete/?q={query}
  */
-export async function autocomplete(query: string): Promise<SearchResult> {
-  return apiClient.get<SearchResult>('/api/search/autocomplete/', { q: query });
+export async function autocompleteSearch(query: string): Promise<AutocompleteResponse> {
+  return apiClient.get<AutocompleteResponse>(
+    `/api/search/autocomplete/?q=${encodeURIComponent(query)}`
+  );
 }
-
-/**
- * Get popular searches
- * GET /api/search/popular/?limit={number}
- */
-export async function getPopularSearches(limit: number = 10): Promise<PopularSearch[]> {
-  return apiClient.get<PopularSearch[]>('/api/search/popular/', { limit });
-}
-
-// ============================================================================
-// SEARCH API OBJECT (ALTERNATIVE EXPORT)
-// ============================================================================
 
 export const searchAPI = {
-  autocomplete,
-  getPopularSearches,
+  autocomplete: autocompleteSearch,
 };

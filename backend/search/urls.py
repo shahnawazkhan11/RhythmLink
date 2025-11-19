@@ -8,6 +8,5 @@ app_name = 'search'
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('autocomplete/', views.AutocompleteView.as_view(), name='autocomplete'),
-    path('popular/', views.PopularSearchesView.as_view(), name='popular-searches'),
+    path('autocomplete/', views.autocomplete_search, name='autocomplete'),
 ]

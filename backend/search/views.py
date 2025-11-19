@@ -1,4 +1,40 @@
 from django.shortcuts import render
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .utils import typo_tolerant_search
+
+
+@api_view(['GET'])
+def autocomplete_search(request):
+    """
+    Autocomplete search endpoint with typo tolerance
+    GET /api/search/autocomplete/?q=concert
+    """
+    query = request.GET.get('q', '').strip()
+    
+    if len(query) < 2:
+        return Response({
+            'query': query,
+            'results': [],
+            'count': 0,
+            'message': 'Query too short (minimum 2 characters)'
+        })
+    
+    try:
+        results = typo_tolerant_search(query, limit=10)
+        
+        return Response({
+            'query': query,
+            'results': results,
+            'count': len(results)
+        })
+    except Exception as e:
+        return Response({
+            'query': query,
+            'results': [],
+            'count': 0,
+            'error': str(e)
+        }, status=500)
 from django.db.models import Q, F
 from rest_framework import generics
 from rest_framework.response import Response
